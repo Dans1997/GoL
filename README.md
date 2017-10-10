@@ -2,8 +2,8 @@
 A implementation of the main architecture of game of life in Scala.
 
 -------------
-Implementação do Game od Life em Scala. A primeira versão tem várias falhas de design.
+Implementação do Game of Life em Scala. A primeira versão tem várias falhas de design.
 Este projeto segue fielmente a arquitetura do @rbonifacio/gameOfLifeJ.
 
-Implementa��o base para peojeto.
-Todos os cr�tidos � Breno Xavier.
+Implementação base para peojeto.
+Todos os crétidos à Breno Xavier.
