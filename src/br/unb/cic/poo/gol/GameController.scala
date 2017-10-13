@@ -7,6 +7,17 @@ package br.unb.cic.poo.gol
  */
 object GameController {
   
+  /*
+   * Aqui, pode-se notar a inicialização de uma variável do tipo 
+   * GameEngine, que será usada para instanciar tal classe abstrata
+   * 
+   * Por padrão, ela abrigará as regras clássicas do Game of Life 
+   * para não ter a necessidade de entrar na seleção de regras
+   * todas as vezes que o programa for rodado
+   */
+  
+  var gameEngine : GameEngine = new OldRule
+  
   def start {
     GameView.update
   }
@@ -20,7 +31,7 @@ object GameController {
 
   def makeCellAlive(i: Int, j: Int) {
     try {
-			GameEngine.makeCellAlive(i, j)
+			gameEngine.makeCellAlive(i, j)
 			GameView.update
 		}
 		catch {
@@ -31,7 +42,7 @@ object GameController {
   }
   
   def nextGeneration {
-    GameEngine.nextGeneration
+    gameEngine.nextGeneration
     GameView.update
   }
   

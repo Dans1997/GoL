@@ -8,13 +8,17 @@ import scala.annotation.tailrec
  * Representa a Game Engine do GoL 
  * 
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
+ * 
+ * Para o Template Method, o objeto GameEngine foi transformado em uma classe 
+ * abstrata
  */
-object GameEngine {
+
+abstract class GameEngine {
   
   val height = Main.height
   val width = Main.width
   
-  val cells = Array.ofDim[Cell](height, width)
+  var cells = Array.ofDim[Cell](height, width)
   
   
   for(i <- (0 until height)) {
@@ -128,25 +132,22 @@ object GameEngine {
     }
   }
   
+  /*
+   * Como uma classe abstrata não pode ter modificadores privados,
+   * shouldKeepAlive e shouldRevive passaram a ser funções simples
+   */
   
   /* verifica se uma celula deve ser mantida viva */
-  private def shouldKeepAlive(i: Int, j: Int): Boolean = {
-    (cells(i)(j).isAlive) &&
-      (numberOfNeighborhoodAliveCells(i, j) == 2 || numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
-  
+  def shouldKeepAlive(i: Int, j: Int): Boolean
   /* verifica se uma celula deve (re)nascer */
-  private def shouldRevive(i: Int, j: Int): Boolean = {
-    (!cells(i)(j).isAlive) && 
-      (numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
+  def shouldRevive(i: Int, j: Int): Boolean
 
   
   /*
 	 * Computa o numero de celulas vizinhas vivas, dada uma posicao no ambiente
 	 * de referencia identificada pelos argumentos (i,j).
 	 */
-  private def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
+  def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
     var alive = 0
     for(a <- (i - 1 to i + 1)) {
       for(b <- (j - 1 to j + 1)) {
