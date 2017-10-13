@@ -1,6 +1,6 @@
-# GoF Template Method
+# GameOfLife-SPartial
+A implementation of the main architecture of game of life in Scala.
 
 -------------
-Implementação do Game of Life usando o padrão de projeto Template Method, 
-tendo como base a implementação de Breno Xavier.
-
+Implementação do Game od Life em Scala. A primeira versão tem várias falhas de design.
+Este projeto segue fielmente a arquitetura do @rbonifacio/gameOfLifeJ.

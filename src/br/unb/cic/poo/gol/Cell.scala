@@ -1,7 +1,7 @@
 package br.unb.cic.poo.gol
 
 /**
- * Rerepsentacao de uma celula do GoL 
+ * Representação de uma célula do GoL 
  * 
  * @author Breno Xavier (baseado na implementacao Java de rbonifacio@unb.br
  */
