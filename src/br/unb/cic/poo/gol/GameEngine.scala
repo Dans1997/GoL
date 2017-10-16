@@ -14,7 +14,13 @@ object GameEngine {
   val height = Main.height
   val width = Main.width
   
-  val cells = Array.ofDim[Cell](height, width)
+  /*
+   * Colocando a regra de  
+   */
+  
+  var ActualRule : Strategy = new Classic()
+  
+  var cells = Array.ofDim[Cell](height, width)
   
   
   for(i <- (0 until height)) {
@@ -45,10 +51,10 @@ object GameEngine {
     
     for(i <- (0 until height)) {
       for(j <- (0 until width)) {
-        if(shouldRevive(i, j)) {
+        if(ActualRule.shouldRevive(i, j)) {
           mustRevive += cells(i)(j)
         }
-        else if((!shouldKeepAlive(i, j)) && cells(i)(j).isAlive) {
+        else if((!ActualRule.shouldKeepAlive(i, j)) && cells(i)(j).isAlive) {
           mustKill += cells(i)(j)
         }
       }
@@ -128,25 +134,11 @@ object GameEngine {
     }
   }
   
-  
-  /* verifica se uma celula deve ser mantida viva */
-  private def shouldKeepAlive(i: Int, j: Int): Boolean = {
-    (cells(i)(j).isAlive) &&
-      (numberOfNeighborhoodAliveCells(i, j) == 2 || numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
-  
-  /* verifica se uma celula deve (re)nascer */
-  private def shouldRevive(i: Int, j: Int): Boolean = {
-    (!cells(i)(j).isAlive) && 
-      (numberOfNeighborhoodAliveCells(i, j) == 3)
-  }
-
-  
   /*
 	 * Computa o numero de celulas vizinhas vivas, dada uma posicao no ambiente
 	 * de referencia identificada pelos argumentos (i,j).
 	 */
-  private def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
+  def numberOfNeighborhoodAliveCells(i: Int, j: Int): Int = {
     var alive = 0
     for(a <- (i - 1 to i + 1)) {
       for(b <- (j - 1 to j + 1)) {

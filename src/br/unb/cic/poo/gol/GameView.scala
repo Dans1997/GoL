@@ -17,8 +17,7 @@ object GameView {
 	private final val MAKE_CELL_ALIVE = 1
 	private final val NEXT_GENERATION = 2
 	private final val HALT = 3
-	
-  
+	private final val RULES = 4
   
   
   /**
@@ -49,16 +48,18 @@ object GameView {
 			println("[1] Make a cell alive");
 			println("[2] Next generation");
 			println("[3] Halt");
+			println("[4] Select Rule");
 		
 			print("\n \n Option: ");
 			
 			option = parseOption(readLine)
 	  }while(option == 0)
-	  
+	    
 	  option match {
       case MAKE_CELL_ALIVE => makeCellAlive
       case NEXT_GENERATION => nextGeneration
       case HALT => halt
+      case RULES => printRules
     }
 	}
   
@@ -92,6 +93,7 @@ object GameView {
     case "1" => MAKE_CELL_ALIVE
     case "2" => NEXT_GENERATION
     case "3" => HALT
+    case "4" => RULES
     case _ => INVALID_OPTION
   }
 	
@@ -115,5 +117,52 @@ object GameView {
 		}
 		println()
 	}
+	
+	private def printRules {
+	  
+	  var optionRules = 0
+	  var cellsAux = Array.ofDim[Cell](Main.height, Main.width)
+	  
+	  println("\n\n")
+	  
+	  do{
+	    println("Select one of the rules: \n \n"); 
+			println("[1] Classic Conway's");
+			println("[2] The Expander Rule");
+		
+			print("\n \n Option: ");
+			
+			optionRules = parseOptionRules(readLine)
+	  }while(optionRules == 0)
+	  
+	  optionRules match {
+      case 1 => {
+                  println("\n You chose the Classic Game of Life. \n");
+                  cellsAux = GameEngine.cells
+                  GameEngine.ActualRule = new Classic()
+                  GameEngine.cells = cellsAux
+                  update
+                }
+      case 2 => {
+                  println("\n You chose the Expander Rule. \n");
+                  cellsAux = GameEngine.cells
+                  GameEngine.ActualRule = new Expander()
+                  GameEngine.cells = cellsAux
+                  update
+                }
+    }
+	}
+	
+	/*
+	 * A priori, essa função é redundante e poderia ser facilmente
+	 * retirada; Contudo, levando em conta a facilidade de adição de
+	 * novas regras, fazer uma função de fácil entendimento e
+	 * manutenção é completamente necessário!
+	 */
+	def parseOptionRules(option: String): Int = option match {
+    case "1" => 1 
+    case "2" => 2
+    case _ => INVALID_OPTION
+  }
   
 }
